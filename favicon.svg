@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" fill="#0d0d0d"/>
+  <rect x="1" y="1" width="30" height="30" fill="none" stroke="#C9A84C" stroke-width="0.8" opacity="0.5"/>
+  <text x="16" y="21" font-family="Georgia,'Times New Roman',serif" font-size="16" font-weight="400" fill="#C9A84C" text-anchor="middle" letter-spacing="1">B</text>
+  <text x="8"  y="11" font-family="serif" font-size="7" fill="#C9A84C" text-anchor="middle" opacity="0.4">♠</text>
+  <text x="24" y="11" font-family="serif" font-size="7" fill="#C9A84C" text-anchor="middle" opacity="0.4">♣</text>
+  <text x="8"  y="28" font-family="serif" font-size="7" fill="#C9A84C" text-anchor="middle" opacity="0.4">♥</text>
+  <text x="24" y="28" font-family="serif" font-size="7" fill="#C9A84C" text-anchor="middle" opacity="0.4">♦</text>
+</svg>
