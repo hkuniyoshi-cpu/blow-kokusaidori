@@ -275,6 +275,15 @@ h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; line-height: 1.2; 
   z-index: 0;
 }
 
+.hero-photo-bg {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0; z-index: 0;
+  transition: opacity 1.8s ease;
+}
+.hero-photo-bg.visible { opacity: 0.28; }
+
 .hero-logo-wrap {
   position: relative; z-index: 2;
   text-align: center;
@@ -816,7 +825,10 @@ footer { background: var(--bg); border-top: 1px solid var(--border); padding: 60
   .sns-grid { padding: 0 24px; }
   .concept-panel { padding: 80px 24px; }
   .c-title { font-size: clamp(40px, 11vw, 64px); }
-  .hero-scroll { bottom: 32px; }
+  .hero-scroll { bottom: max(32px, calc(env(safe-area-inset-bottom) + 16px)); }
+  .hero-eyebrow { letter-spacing: .18em; font-size: 9px; }
+  .hero-logo-sub { letter-spacing: .20em; font-size: 10px; }
+  .hero-tag { letter-spacing: .16em; font-size: 10px; padding: 8px 16px; }
   .footer-copy { grid-column: 1; }
   .footer-inner { padding: 0 24px 40px; }
   .section-title { overflow-wrap: break-word; word-break: break-all; }
