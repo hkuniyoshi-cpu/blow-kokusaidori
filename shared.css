@@ -4,6 +4,52 @@
    inspired by restaurant.nelu.osaka
    ============================================================ */
 
+/* ── 0. Site Loader ───────────────────────────────── */
+#siteLoader {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--bg, #0d0d0d);
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity .9s ease, visibility .9s ease;
+}
+#siteLoader.loaded {
+  opacity: 0; visibility: hidden; pointer-events: none;
+}
+.loader-inner {
+  text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 22px;
+}
+.loader-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(72px, 14vw, 140px);
+  font-weight: 300; letter-spacing: .38em; line-height: 1;
+  color: #F6F1EB; margin: 0;
+  animation: loader-appear 1.2s cubic-bezier(.25,.46,.45,.94) both;
+}
+.loader-track {
+  width: 140px; height: 1px;
+  background: rgba(201,168,76,.18);
+  position: relative; overflow: hidden;
+}
+.loader-sweep {
+  position: absolute; top: 0; left: -100%; height: 100%; width: 100%;
+  background: linear-gradient(90deg, transparent, #C9A84C, transparent);
+  animation: loader-sweep-anim 1.6s ease-in-out infinite;
+}
+.loader-caption {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px; letter-spacing: .36em; text-transform: uppercase;
+  color: rgba(201,168,76,.55); margin: 0;
+  animation: loader-appear 1.2s cubic-bezier(.25,.46,.45,.94) .3s both;
+}
+@keyframes loader-appear {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes loader-sweep-anim {
+  0%   { left: -100%; }
+  100% { left: 100%; }
+}
+
 /* ── 1. Variables ─────────────────────────────────── */
 :root {
   --bg:          #0d0d0d;
@@ -328,19 +374,27 @@ h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; line-height: 1.2; 
 }
 
 .hero-tagline-right {
-  position: absolute; right: 48px; top: 50%; transform: translateY(-50%);
+  position: absolute; right: 48px; top: 50%;
   z-index: 2;
   font-family: var(--serif-jp); font-size: 12px; font-weight: 300;
   letter-spacing: .28em; color: var(--ink-soft);
   writing-mode: vertical-rl;
-  opacity: 0; animation: fade-up 1.5s var(--ease-n) 1.8s both;
+  opacity: 0; animation: tagline-right-fade 1.5s var(--ease-n) 1.8s both;
+}
+@keyframes tagline-right-fade {
+  from { opacity: 0; transform: translateY(calc(-50% + 20px)); }
+  to   { opacity: 1; transform: translateY(-50%); }
 }
 
 .hero-scroll {
-  position: absolute; bottom: 48px; left: 50%; transform: translateX(-50%);
+  position: absolute; bottom: 48px; left: 50%;
   z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 10px;
-  opacity: 0; animation: fade-up 1.2s var(--ease-n) 2.1s both;
+  opacity: 0; animation: scroll-center-fade 1.2s var(--ease-n) 2.1s both;
   transition: opacity .5s ease;
+}
+@keyframes scroll-center-fade {
+  from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 .scroll-line {
   width: 1px; height: 48px;
@@ -827,6 +881,8 @@ footer { background: var(--bg); border-top: 1px solid var(--border); padding: 60
   .concept-panel { padding: 80px 24px; }
   .c-title { font-size: clamp(40px, 11vw, 64px); }
   .hero-scroll { bottom: max(32px, calc(env(safe-area-inset-bottom) + 16px)); }
+  .loader-title { letter-spacing: .26em; }
+  .loader-track { width: 100px; }
   .hero-eyebrow { letter-spacing: .18em; font-size: 9px; }
   .hero-logo-sub { letter-spacing: .20em; font-size: 10px; }
   .hero-tag { letter-spacing: .16em; font-size: 10px; padding: 8px 16px; }
