@@ -157,6 +157,10 @@ function driveImg(url) {
   return s;
 }
 function getSlug() {
+  // Query param: /blog/?post=SLUG (Cloudflare Pages static file serving)
+  const params = new URLSearchParams(location.search);
+  if (params.get('post')) return params.get('post');
+  // Fallback: path-based /blog/SLUG/ (via _redirects rewrite)
   const m = location.pathname.match(/\/blog\/([^\/]+)\/?$/);
   return m ? m[1] : '';
 }
