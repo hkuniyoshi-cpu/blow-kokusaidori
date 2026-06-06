@@ -93,6 +93,7 @@
 
 <!-- ===== HERO ===== -->
 <section class="hero" id="hero">
+  <div class="hero-photo-bg" id="heroPhotoBg"></div>
   <div class="hero-aurora"></div>
   <div class="grain"></div>
   <div class="hero-bg-gradient"></div>
@@ -108,8 +109,8 @@
   <div class="hero-tagline-right">那覇 · 松尾 · 17:00〜24:00</div>
 
   <div class="hero-scroll" id="heroScroll">
-    <div class="scroll-line"></div>
     <span class="scroll-label">SCROLL</span>
+    <div class="scroll-line"></div>
   </div>
 
   <div class="suits-deco" aria-hidden="true">
@@ -536,7 +537,40 @@ function applySettings(s) {
 }
 
 function applyHero(items) {
-  // photos background update if provided
+  if (!Array.isArray(items) || !items.length) return;
+  const subs = items.filter(i => i.type === 'sub');
+  const eyebrow = document.querySelector('.hero-eyebrow');
+  if (eyebrow && subs[0] && subs[0].text) eyebrow.textContent = subs[0].text;
+  const tag = document.querySelector('.hero-tag');
+  if (tag && subs[1] && subs[1].text) tag.textContent = subs[1].text;
+  const tagRight = document.querySelector('.hero-tagline-right');
+  if (tagRight && subs[2] && subs[2].text) tagRight.textContent = subs[2].text;
+
+  const photos = items.filter(i => i.type === 'photo' && i.image);
+  const bgSrc  = photos.length ? photos : items.filter(i => i.image);
+  if (!bgSrc.length) return;
+  const bg = document.getElementById('heroPhotoBg');
+  if (!bg) return;
+  const urls = bgSrc.map(p => driveImg(p.image)).filter(Boolean);
+  if (!urls.length) return;
+
+  let idx = 0;
+  function showPhoto(url) {
+    const img = new Image();
+    img.onload = function() {
+      bg.style.backgroundImage = 'url("' + url + '")';
+      bg.classList.add('visible');
+    };
+    img.src = url;
+  }
+  showPhoto(urls[0]);
+  if (urls.length > 1) {
+    setInterval(function() {
+      idx = (idx + 1) % urls.length;
+      bg.classList.remove('visible');
+      setTimeout(function() { showPhoto(urls[idx]); }, 600);
+    }, 5000);
+  }
 }
 
 function applyAbout(items) {
