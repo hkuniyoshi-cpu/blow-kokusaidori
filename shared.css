@@ -525,7 +525,7 @@ h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; line-height: 1.2; 
 .games { background: var(--bg-2); padding-bottom: 100px; }
 .menu-grid {
   max-width: 1200px; margin: 0 auto; padding: 0 48px;
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px;
+  display: flex; flex-wrap: wrap; gap: 22px; justify-content: center;
 }
 .menu-skel {
   background: var(--bg-card); border: 1px solid rgba(201,168,76,.06);
@@ -537,6 +537,7 @@ h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; line-height: 1.2; 
   background-size: 250% 100%; animation: skel-shimmer 2s ease-in-out infinite;
 }
 .menu-card {
+  flex: 0 0 calc((100% - 44px) / 3); min-width: 0;
   background: var(--bg-card); border: 1px solid var(--border);
   border-radius: 1px; overflow: hidden;
   transition: border-color .4s ease, transform .4s var(--ease-n);
@@ -916,7 +917,8 @@ footer { background: var(--bg); border-top: 1px solid var(--border); padding: 60
 /* ── 23. Mobile ──────────────────────────────────────── */
 @media (max-width: 900px) {
   .about-body { grid-template-columns: 1fr; gap: 40px; }
-  .menu-grid { grid-template-columns: repeat(2, 1fr); padding: 0 24px; }
+  .menu-grid { padding: 0 24px; }
+  .menu-card { flex: 0 0 calc((100% - 22px) / 2); }
   .foryou-grid { grid-template-columns: repeat(2, 1fr); padding: 0 24px; }
   .reviews-grid { grid-template-columns: repeat(2, 1fr); padding: 0 24px; }
   .wall { grid-template-columns: repeat(2, 1fr); padding: 0 24px; }
@@ -936,7 +938,7 @@ footer { background: var(--bg); border-top: 1px solid var(--border); padding: 60
   .about-body { padding: 0 24px; }
   .about-photos { grid-template-columns: 1fr; grid-template-rows: 180px 150px 150px; }
   .about-ph.ap1 { grid-column: 1; grid-row: 1; }
-  .menu-grid { grid-template-columns: 1fr; }
+  .menu-card { flex: 0 0 100%; }
   .foryou-grid { grid-template-columns: 1fr; }
   .reviews-grid { grid-template-columns: 1fr; }
   .wall { grid-template-columns: 1fr; }
