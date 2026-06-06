@@ -4,34 +4,6 @@
    inspired by restaurant.nelu.osaka
    ============================================================ */
 
-/* ── 0a. Global Casino Background ─────────────────── */
-/* position:fixed + mix-blend-mode:screen で暗背景すべてに透過表示 */
-.casino-global-bg {
-  position: fixed; inset: 0; z-index: 1;
-  pointer-events: none; overflow: hidden;
-  mix-blend-mode: screen;
-}
-.cgb-s {
-  position: absolute;
-  font-family: Georgia, 'Times New Roman', serif;
-  color: rgba(201,168,76,.10);
-  user-select: none; line-height: 1;
-}
-.cgb-s:nth-child(1)  { font-size:130px; top: 3vh; left: 2vw;  transform:rotate(-18deg); }
-.cgb-s:nth-child(2)  { font-size: 85px; top: 7vh; right: 7vw; transform:rotate(12deg);  }
-.cgb-s:nth-child(3)  { font-size:105px; top:18vh; left:86vw;  transform:rotate(-6deg);  }
-.cgb-s:nth-child(4)  { font-size: 95px; top:26vh; left: 5vw;  transform:rotate(22deg);  }
-.cgb-s:nth-child(5)  { font-size: 75px; top:37vh; right: 3vw; transform:rotate(-14deg); }
-.cgb-s:nth-child(6)  { font-size:115px; top:46vh; left:46vw;  transform:rotate(8deg);   }
-.cgb-s:nth-child(7)  { font-size: 90px; top:54vh; left: 1vw;  transform:rotate(-24deg); }
-.cgb-s:nth-child(8)  { font-size:100px; top:63vh; right:16vw; transform:rotate(16deg);  }
-.cgb-s:nth-child(9)  { font-size:120px; top:71vh; left:28vw;  transform:rotate(-10deg); }
-.cgb-s:nth-child(10) { font-size: 80px; top:79vh; right: 4vw; transform:rotate(26deg);  }
-.cgb-s:nth-child(11) { font-size: 95px; top:86vh; left:68vw;  transform:rotate(-16deg); }
-.cgb-s:nth-child(12) { font-size:110px; top:92vh; left:11vw;  transform:rotate(18deg);  }
-.cgb-s:nth-child(13) { font-size: 70px; top:13vh; left:53vw;  transform:rotate(-30deg); }
-.cgb-s:nth-child(14) { font-size: 88px; top:73vh; left:43vw;  transform:rotate(5deg);   }
-.cgb-s:nth-child(15) { font-size: 78px; top:34vh; left:63vw;  transform:rotate(-20deg); }
 
 /* ── 0b. Site Loader ───────────────────────────────── */
 #siteLoader {
@@ -846,30 +818,58 @@ footer { background: var(--bg); border-top: 1px solid var(--border); padding: 60
 
 /* ── Partner Notice ───────────────────────────────── */
 .partner-notice {
-  background: rgba(201,168,76,.05);
-  border-top: 1px solid rgba(201,168,76,.14);
-  text-align: center;
-  padding: 20px 24px 22px;
+  position: relative;
+  background: linear-gradient(90deg, transparent 0%, rgba(201,168,76,.06) 50%, transparent 100%);
+  border-top: 1px solid rgba(201,168,76,.22);
+  padding: 28px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
   font-family: var(--sans);
 }
+.partner-notice::before {
+  content: '◆';
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: rgba(201,168,76,.55);
+  background: var(--bg);
+  padding: 0 12px;
+}
 .partner-notice p {
-  font-size: 11px;
-  letter-spacing: .10em;
-  line-height: 1.9;
-  color: rgba(246,241,235,.32);
-  margin: 0 0 8px;
+  font-size: 11.5px;
+  letter-spacing: .06em;
+  line-height: 1.8;
+  color: rgba(246,241,235,.50);
+  margin: 0;
+  flex: 1;
 }
 .partner-notice a {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-size: 10px;
   letter-spacing: .22em;
   text-transform: uppercase;
-  color: rgba(201,168,76,.60);
+  color: var(--gold-soft);
+  border: 1px solid rgba(201,168,76,.38);
+  padding: 11px 24px;
+  white-space: nowrap;
   text-decoration: none;
-  border-bottom: 1px solid rgba(201,168,76,.25);
-  padding-bottom: 1px;
-  transition: color .3s ease, border-color .3s ease;
+  transition: background .3s ease, border-color .3s ease, color .3s ease;
 }
-.partner-notice a:hover { color: var(--gold); border-color: var(--gold); }
+.partner-notice a:hover {
+  background: rgba(201,168,76,.10);
+  border-color: rgba(201,168,76,.65);
+  color: var(--gold);
+}
+@media (max-width: 768px) {
+  .partner-notice { flex-direction: column; align-items: flex-start; padding: 24px; gap: 16px; }
+}
 
 /* ── 21. Buttons ─────────────────────────────────────── */
 .btn {
