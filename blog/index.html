@@ -182,13 +182,13 @@ function updateMeta(title, desc, imgUrl) {
   }
   upsertMeta('property','og:title',title);
   upsertMeta('property','og:description',desc);
-  upsertMeta('property','og:url',SITE_URL + location.pathname);
+  upsertMeta('property','og:url',SITE_URL + location.pathname + location.search);
   upsertMeta('name','twitter:title',title);
   upsertMeta('name','twitter:description',desc);
   if (imgUrl) { upsertMeta('property','og:image',imgUrl); upsertMeta('name','twitter:image',imgUrl); }
   let canonical = document.querySelector('link[rel="canonical"]');
   if (!canonical) { canonical = document.createElement('link'); canonical.setAttribute('rel','canonical'); document.head.appendChild(canonical); }
-  canonical.setAttribute('href', SITE_URL + location.pathname);
+  canonical.setAttribute('href', SITE_URL + location.pathname + location.search);
 }
 function render(item) {
   const root = document.getElementById('root');
@@ -203,6 +203,29 @@ function render(item) {
   if (!title && item.date) title = fmtDate(item.date) + ' の投稿';
   const desc = (item.body || title).slice(0, 120);
   updateMeta(title, desc, imgUrl);
+  // BlogPosting 構造化データ（Googleがクロール時にJSを実行した際に認識される）
+  (function() {
+    var existing = document.getElementById('blog-jsonld');
+    if (existing) existing.remove();
+    var sd = document.createElement('script');
+    sd.id = 'blog-jsonld';
+    sd.type = 'application/ld+json';
+    sd.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": title,
+      "description": desc,
+      "datePublished": item.date || '',
+      "image": imgUrl || '',
+      "url": SITE_URL + location.pathname + location.search,
+      "publisher": {
+        "@type": "Organization",
+        "name": STORE_NAME,
+        "url": SITE_URL
+      }
+    });
+    document.head.appendChild(sd);
+  })();
   root.innerHTML =
     '<article class="card">' +
       (imgUrl ? '<img src="' + esc(imgUrl) + '" alt="' + esc(title) + '" loading="eager">' : '') +
