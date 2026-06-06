@@ -60,6 +60,15 @@
 </head>
 <body>
 
+<!-- ===== LOADER ===== -->
+<div id="siteLoader" aria-hidden="true">
+  <div class="loader-inner">
+    <p class="loader-title">BLOW</p>
+    <div class="loader-track"><div class="loader-sweep"></div></div>
+    <p class="loader-caption">Casino Bar &nbsp;·&nbsp; 国際通り</p>
+  </div>
+</div>
+
 <!-- ===== NAV ===== -->
 <nav id="nav" role="navigation" aria-label="メインナビゲーション">
   <a class="brand" href="/" aria-label="BLOW 沖縄国際通り店 トップへ">
@@ -485,6 +494,17 @@
    ============================================================ */
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbxNbYcMyicthfOx-25Ir2szSp3EDa1rAGNjHrFwxDFSFzww9cfnHcEy_D5IjKiqW2Nq/exec';
 
+/* ── Loader control ──────────────────────────────────────── */
+var _loader   = document.getElementById('siteLoader');
+var _t0       = Date.now();
+var _ldHidden = false;
+function hideLoader() {
+  if (_ldHidden || !_loader) return;
+  _ldHidden = true;
+  _loader.classList.add('loaded');
+}
+setTimeout(hideLoader, 5000); // 5秒強制非表示
+
 /* ── Utilities ─────────────────────────────────────────────── */
 function esc(s) {
   return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -526,8 +546,14 @@ fetch(GAS_URL)
     if (data.delivery) applyDelivery(data.delivery);
     if (data.faq)      applyFAQ(data.faq);
     if (data.cta)      applyCTA(data.cta);
+    // ローダーを非表示（最低2.5秒は表示を維持）
+    var waited = Math.max(0, 2500 - (Date.now() - _t0));
+    setTimeout(hideLoader, waited);
   })
-  .catch(err => console.warn('CMS fetch error:', err));
+  .catch(function(err) {
+    console.warn('CMS fetch error:', err);
+    hideLoader();
+  });
 
 /* ── apply functions ────────────────────────────────────────── */
 function applySettings(s) {
