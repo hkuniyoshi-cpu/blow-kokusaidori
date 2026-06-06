@@ -556,12 +556,8 @@ function applyHero(items) {
 
   let idx = 0;
   function showPhoto(url) {
-    const img = new Image();
-    img.onload = function() {
-      bg.style.backgroundImage = 'url("' + url + '")';
-      bg.classList.add('visible');
-    };
-    img.src = url;
+    bg.style.backgroundImage = 'url("' + url + '")';
+    bg.classList.add('visible');
   }
   showPhoto(urls[0]);
   if (urls.length > 1) {
