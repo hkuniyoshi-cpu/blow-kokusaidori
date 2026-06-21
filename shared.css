@@ -354,7 +354,10 @@ h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; line-height: 1.2; 
 }
 .logo-p1 {
   display: inline-block; opacity: 0;
-  animation: logo-reveal 2s var(--ease-n) .4s both;
+  animation:
+    logo-reveal  2s   var(--ease-n) .4s  both,
+    neon-pulse   3.5s ease-in-out   2.6s infinite,
+    neon-flicker 9s   step-end      3s   infinite;
 }
 .hero-logo-sub {
   font-family: var(--sans); font-size: 11px;
@@ -418,14 +421,14 @@ h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; line-height: 1.2; 
   position: absolute; inset: 0; pointer-events: none; z-index: 1; overflow: hidden;
 }
 .suit {
-  position: absolute; font-size: 200px; opacity: .018;
+  position: absolute; font-size: 200px; opacity: .036;
   color: var(--gold); font-family: serif; line-height: 1;
   animation: suit-float 20s ease-in-out infinite;
 }
 .suit.s1 { top: 5%; left: 3%; animation-delay: 0s; }
 .suit.s2 { top: 10%; right: 5%; animation-delay: 5s; }
-.suit.s3 { bottom: 8%; left: 8%; animation-delay: 10s; }
-.suit.s4 { bottom: 10%; right: 3%; animation-delay: 15s; }
+.suit.s3 { bottom: 8%; left: 8%; animation-delay: 10s; color: var(--crimson-soft); }
+.suit.s4 { bottom: 10%; right: 3%; animation-delay: 15s; color: var(--crimson-soft); }
 
 /* ── 7. Concept panels ──────────────────────────────── */
 .concept-wrap { background: var(--bg); }
@@ -910,8 +913,8 @@ footer { background: var(--bg); border-top: 1px solid var(--border); padding: 60
   to   { transform: translateX(-50%); }
 }
 @keyframes suit-float {
-  0%, 100% { transform: translateY(0) rotate(-5deg); opacity: .018; }
-  50%       { transform: translateY(-30px) rotate(5deg); opacity: .03; }
+  0%, 100% { transform: translateY(0) rotate(-5deg); opacity: .036; }
+  50%       { transform: translateY(-30px) rotate(5deg); opacity: .055; }
 }
 
 /* ── 23. Mobile ──────────────────────────────────────── */
@@ -968,4 +971,118 @@ footer { background: var(--bg); border-top: 1px solid var(--border); padding: 60
     animation-duration: .01ms !important;
     transition-duration: .01ms !important;
   }
+}
+
+/* ═══════════════════════════════════════════════════════
+   CASINO ANIMATIONS — ネオン / ルーレット / カード / パーティクル
+   ═══════════════════════════════════════════════════════ */
+
+/* 1. Neon glow + flicker (hero BLOW logo & CTA) */
+@keyframes neon-pulse {
+  0%, 100% {
+    text-shadow:
+      0 0 12px rgba(201,168,76,.25),
+      0 0 35px rgba(201,168,76,.1);
+  }
+  50% {
+    text-shadow:
+      0 0 22px rgba(201,168,76,.95),
+      0 0 65px rgba(201,168,76,.55),
+      0 0 130px rgba(201,168,76,.28),
+      0 0 210px rgba(201,168,76,.1);
+  }
+}
+@keyframes neon-flicker {
+  0%, 92%, 100% { opacity: 1; }
+  93%  { opacity: .06; }
+  94%  { opacity: .88; }
+  95%  { opacity: .14; }
+  96%  { opacity: 1; }
+  97%  { opacity: .03; }
+  98%  { opacity: .96; }
+}
+@keyframes neon-pulse-soft {
+  0%, 100% { text-shadow: 0 0 8px rgba(201,168,76,.18), 0 0 24px rgba(201,168,76,.07); }
+  50%       { text-shadow: 0 0 22px rgba(201,168,76,.65), 0 0 58px rgba(201,168,76,.28); }
+}
+
+.cta-h1            { animation: neon-pulse-soft 4.5s ease-in-out infinite; }
+.cta-h2 em         { animation: neon-pulse-soft 4.5s ease-in-out .6s infinite; }
+
+/* 2. Roulette wheel decoration */
+@keyframes roulette-spin { to { transform: rotate(360deg); } }
+
+.roulette-deco {
+  position: absolute;
+  border-radius: 50%;
+  background: conic-gradient(
+    #111 0deg 9deg, #C9A84C 9deg 18deg, #111 18deg 27deg, #8B1A2E 27deg 36deg,
+    #111 36deg 45deg, #C9A84C 45deg 54deg, #111 54deg 63deg, #8B1A2E 63deg 72deg,
+    #111 72deg 81deg, #C9A84C 81deg 90deg, #111 90deg 99deg, #8B1A2E 99deg 108deg,
+    #111 108deg 117deg, #C9A84C 117deg 126deg, #111 126deg 135deg, #8B1A2E 135deg 144deg,
+    #111 144deg 153deg, #C9A84C 153deg 162deg, #111 162deg 171deg, #8B1A2E 171deg 180deg,
+    #111 180deg 189deg, #C9A84C 189deg 198deg, #111 198deg 207deg, #8B1A2E 207deg 216deg,
+    #111 216deg 225deg, #C9A84C 225deg 234deg, #111 234deg 243deg, #8B1A2E 243deg 252deg,
+    #111 252deg 261deg, #C9A84C 261deg 270deg, #111 270deg 279deg, #8B1A2E 279deg 288deg,
+    #111 288deg 297deg, #C9A84C 297deg 306deg, #111 306deg 315deg, #8B1A2E 315deg 324deg,
+    #111 324deg 333deg, #C9A84C 333deg 342deg, #111 342deg 351deg, #8B1A2E 351deg 360deg
+  );
+  border: 3px solid rgba(201,168,76,.22);
+  animation: roulette-spin 8s linear infinite;
+  pointer-events: none;
+  will-change: transform;
+}
+.roulette-deco::after {
+  content: '';
+  position: absolute;
+  inset: 26%;
+  border-radius: 50%;
+  background: #0d0d0d;
+  border: 2px solid rgba(201,168,76,.16);
+}
+
+#concept1 .roulette-deco {
+  width: 480px; height: 480px;
+  right: -165px; bottom: -165px;
+  opacity: .17;
+}
+#concept3 .roulette-deco {
+  width: 360px; height: 360px;
+  left: -125px; top: -125px;
+  opacity: .14;
+  animation-duration: 12s;
+  animation-direction: reverse;
+}
+.cta .roulette-deco {
+  width: 740px; height: 740px;
+  left: calc(50% - 370px);
+  top: calc(50% - 370px);
+  opacity: .055;
+  border-width: 4px;
+  animation-duration: 24s;
+}
+
+/* 3. Menu card flip-deal on scroll */
+@keyframes card-deal {
+  from {
+    opacity: 0;
+    transform: rotateY(90deg) translateY(10px) scale(.94);
+  }
+  to {
+    opacity: 1;
+    transform: rotateY(0deg) translateY(0) scale(1);
+  }
+}
+#menuGrid { perspective: 1100px; }
+.menu-card.deal {
+  animation: card-deal .55s cubic-bezier(.25,.46,.45,.94) both;
+}
+
+/* 4. Casino canvas (fixed background particles) */
+#casino-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
 }
