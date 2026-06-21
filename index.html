@@ -61,6 +61,7 @@
 </head>
 <body>
 
+<canvas id="casino-canvas" aria-hidden="true"></canvas>
 
 <!-- ===== LOADER ===== -->
 <div id="siteLoader" aria-hidden="true">
@@ -135,6 +136,7 @@
 <!-- ===== CONCEPT ===== -->
 <section class="concept-wrap" aria-label="コンセプト">
   <div class="concept-panel" id="concept1">
+    <div class="roulette-deco" aria-hidden="true"></div>
     <div class="concept-inner reveal">
       <span class="c-num">01</span>
       <h2 class="c-title">大人の<br>特別な夜へ</h2>
@@ -149,6 +151,7 @@
     </div>
   </div>
   <div class="concept-panel" id="concept3">
+    <div class="roulette-deco" aria-hidden="true"></div>
     <div class="concept-inner reveal">
       <span class="c-num">03</span>
       <h2 class="c-title">フリードリンクで<br>乾杯を</h2>
@@ -443,6 +446,7 @@
 
 <!-- ===== CTA ===== -->
 <section id="cta" class="cta">
+  <div class="roulette-deco" aria-hidden="true"></div>
   <div class="cta-box">
     <div class="cta-suits" aria-hidden="true"><span>♠</span><span>♣</span><span>♥</span><span>♦</span></div>
     <h2 class="cta-h1" id="ctaH1">今夜、</h2>
@@ -635,6 +639,22 @@ function applyMenu(items) {
       </div>
     </article>`;
   }).join('');
+  var dealCards = Array.from(grid.querySelectorAll('.menu-card'));
+  dealCards.forEach(function(c) { c.style.opacity = '0'; });
+  var dealObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (!e.isIntersecting) return;
+      dealObs.disconnect();
+      dealCards.forEach(function(c, i) {
+        setTimeout(function() {
+          c.style.opacity = '';
+          c.classList.add('deal');
+          c.addEventListener('animationend', function() { c.classList.remove('deal'); }, { once: true });
+        }, i * 80);
+      });
+    });
+  }, { threshold: 0.1 });
+  dealObs.observe(grid);
 }
 
 function applyFeatures(items) {
@@ -869,6 +889,44 @@ window.addEventListener('scroll', () => {
   if (!heroEl || !heroScroll) return;
   heroScroll.style.opacity = Math.max(0, 1 - window.scrollY / (heroEl.offsetHeight * 0.4));
 }, { passive: true });
+
+/* ── Casino canvas: cards + coins + sparkles ─────────────────── */
+(function() {
+  var cvs = document.getElementById('casino-canvas');
+  if (!cvs) return;
+  var ctx = cvs.getContext('2d');
+  var W=0, H=0, raf=0, ps=[], coinMode=false;
+  var CARDS=['A♠','K♠','Q♥','J♦','10♣','9♥','8♦','7♠','A♥','K♦','Q♠','J♣','6♥','4♦','2♣','3♠'];
+  function resize(){ W=cvs.width=window.innerWidth; H=cvs.height=window.innerHeight; }
+  function mkCard(){ var t=CARDS[0|Math.random()*CARDS.length], red=t.endsWith('♥')||t.endsWith('♦'); return{x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.32,vy:-(Math.random()*.18+.06),rot:Math.random()*Math.PI*2,vr:(Math.random()-.5)*.015,a:Math.random()*.22+.06,sz:Math.random()*10+9,t:t,red:red,tp:0}; }
+  function mkCoin(){ return{x:Math.random()*W,y:-40,vx:(Math.random()-.5)*.4,vy:Math.random()*1.6+.7,rot:Math.random()*Math.PI*2,vr:(Math.random()-.5)*.08,a:.85,r:Math.random()*8+4,tp:1}; }
+  function mkSpark(){ return{x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,r:Math.random()*1.5+.4,a:Math.random()*.38+.12,da:(Math.random()-.5)*.01,tp:2}; }
+  function rrect(x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y); ctx.arcTo(x+w,y,x+w,y+r,r); ctx.lineTo(x+w,y+h-r); ctx.arcTo(x+w,y+h,x+w-r,y+h,r); ctx.lineTo(x+r,y+h); ctx.arcTo(x,y+h,x,y+h-r,r); ctx.lineTo(x,y+r); ctx.arcTo(x,y,x+r,y,r); ctx.closePath(); }
+  function drawP(p){ ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot||0); ctx.globalAlpha=Math.max(0,Math.min(1,p.a));
+    if(p.tp===2){ ctx.fillStyle='rgba(201,168,76,1)'; ctx.beginPath(); ctx.arc(0,0,p.r,0,Math.PI*2); ctx.fill(); }
+    else if(p.tp===1){ ctx.fillStyle='#B8963C'; ctx.strokeStyle='rgba(246,241,235,.55)'; ctx.lineWidth=1.2; ctx.beginPath(); ctx.arc(0,0,p.r,0,Math.PI*2); ctx.fill(); ctx.stroke(); ctx.fillStyle='rgba(246,241,235,.9)'; ctx.font=(p.r*.9)+'px serif'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('¥',0,0); }
+    else{ var w=p.sz*1.4,h=p.sz*2; ctx.fillStyle=p.red?'rgba(65,8,18,.78)':'rgba(12,10,7,.82)'; ctx.strokeStyle=p.red?'rgba(140,24,40,.6)':'rgba(160,135,50,.46)'; ctx.lineWidth=.8; rrect(-w/2,-h/2,w,h,2); ctx.fill(); ctx.stroke(); ctx.fillStyle=p.red?'rgba(205,50,50,.88)':'rgba(210,200,180,.78)'; ctx.font=(p.sz*.56)+'px serif'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(p.t,0,0); }
+    ctx.restore(); }
+  var lastTime=0;
+  function tick(ts){ raf=requestAnimationFrame(tick); if(ts-lastTime<30)return; lastTime=ts;
+    ctx.clearRect(0,0,W,H);
+    ctx.strokeStyle='rgba(201,168,76,.012)'; ctx.lineWidth=1;
+    for(var x=0;x<W;x+=70){ ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+    for(var y=0;y<H;y+=70){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+    for(var i=ps.length-1;i>=0;i--){ var p=ps[i]; p.x+=p.vx; p.y+=p.vy; if(p.rot!==undefined)p.rot+=p.vr||0;
+      if(p.tp===2){ p.a+=p.da; if(p.a<.05||p.a>.65)p.da*=-1; }
+      else if(p.tp===1){ if(p.y>H+55)ps.splice(i,1); }
+      else{ if(p.x<-45)p.x=W+45; else if(p.x>W+45)p.x=-45; if(p.y<-55)p.y=H+55; else if(p.y>H+55)p.y=-55; }
+      if(ps[i])drawP(p); } }
+  function init(){ ps=[];
+    for(var i=0;i<16;i++)ps.push(mkCard());
+    for(var i=0;i<20;i++)ps.push(mkSpark());
+    resize(); cancelAnimationFrame(raf); raf=requestAnimationFrame(tick); }
+  window.addEventListener('resize',resize,{passive:true});
+  var ctaEl=document.querySelector('.cta');
+  if(ctaEl){ var coinObs=new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting&&!coinMode){ coinMode=true; for(var i=0;i<25;i++){ var c=mkCoin(); c.y=-Math.random()*200; ps.push(c); } setTimeout(function(){ coinMode=false; },4000); } }); },{threshold:0.15}); coinObs.observe(ctaEl); }
+  init();
+})();
 </script>
 </body>
 </html>
