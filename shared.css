@@ -811,151 +811,135 @@ h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; line-height: 1.2; 
 .cta-note { font-family: var(--sans); font-size: 10px; letter-spacing: .22em; color: var(--muted); text-transform: uppercase; }
 
 /* ── 19. Price & System ───────────────────────────────── */
-.prs-section { padding: 100px 0 80px; position: relative; z-index: 1; }
+.prs-section { padding: 80px 0 100px; position: relative; z-index: 1; }
+.prs-inner { max-width: 1040px; margin: 0 auto; padding: 0 48px; }
 
-/* ─ Entry Fee ─ */
-.prs-entry {
-  max-width: 660px; margin: 0 auto 72px;
-  text-align: center; padding: 64px 48px;
-  background: var(--bg-card);
-  border: 1px solid rgba(201,168,76,.2);
-  border-radius: 4px; position: relative; overflow: hidden;
-}
-.prs-entry::before {
-  content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,.07) 0%, transparent 70%);
-  pointer-events: none;
-}
-.prs-entry-label {
-  font-family: var(--serif); font-style: italic;
-  font-size: 12px; letter-spacing: .28em; text-transform: uppercase;
-  color: var(--gold-soft); margin-bottom: 20px;
-}
-.prs-entry-price-wrap {
-  display: flex; align-items: baseline; justify-content: center; gap: 4px; margin-bottom: 8px;
-}
-.prs-yen { font-family: var(--serif); font-size: clamp(28px,5vw,40px); font-weight: 300; color: var(--gold); }
-.prs-amount {
-  font-family: var(--serif); font-size: clamp(64px,12vw,96px);
-  font-weight: 300; color: var(--ink); line-height: 1; letter-spacing: -.02em;
-}
-.prs-entry-ja { font-size: 12px; letter-spacing: .22em; color: var(--ink-soft); margin-bottom: 28px; }
-.prs-gold-line { width: 80px; height: 1px; background: rgba(201,168,76,.4); margin: 0 auto 24px; }
-.prs-entry-note { font-size: 13px; line-height: 1.9; color: var(--ink-muted); margin-bottom: 24px; }
-.prs-entry-badge {
-  display: inline-block;
-  font-family: var(--sans); font-size: 9px; letter-spacing: .28em;
-  color: var(--gold); border: 1px solid rgba(201,168,76,.35); padding: 6px 18px; border-radius: 2px;
+/* ─ Price heading ─ */
+.prs-h-price {
+  font-family: var(--serif); font-style: italic; font-weight: 300;
+  font-size: clamp(56px,9vw,96px); line-height: .9; color: var(--gold-soft);
+  margin-bottom: 20px;
 }
 
-/* ─ Block ─ */
-.prs-block { max-width: 900px; margin: 0 auto 72px; padding: 0 24px; }
-.prs-block-title {
-  display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px 16px;
-  font-family: var(--serif-jp); font-size: 17px; font-weight: 400; color: var(--ink); margin-bottom: 32px;
+/* ─ Entry fee row ─ */
+.prs-fee {
+  display: flex; align-items: stretch; overflow: hidden;
+  border: 1px solid rgba(201,168,76,.3); border-radius: 2px; margin-bottom: 72px;
 }
-.prs-en {
-  font-family: var(--serif); font-style: italic;
-  font-size: 10px; letter-spacing: .3em; color: var(--gold-soft);
-  text-transform: uppercase; min-width: 100%; display: block;
+.prs-fee-lbl {
+  padding: 14px 28px; font-size: 13.5px; color: var(--ink-soft);
+  border-right: 1px solid rgba(201,168,76,.3); background: rgba(201,168,76,.04);
+  display: flex; align-items: center; white-space: nowrap;
 }
-.prs-sub {
-  font-size: 11px; color: var(--ink-muted); letter-spacing: .04em;
-  border: 1px solid rgba(201,168,76,.18); border-radius: 2px; padding: 2px 8px; font-family: var(--sans);
-}
+.prs-fee-val { padding: 14px 22px; font-size: 13.5px; color: var(--ink-soft); display: flex; align-items: center; }
 
-/* ─ Chip Pack Table ─ */
-.prs-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-.prs-table { width: 100%; border-collapse: collapse; font-family: var(--sans); font-size: 13px; }
-.prs-table thead tr { border-bottom: 1px solid rgba(201,168,76,.25); }
-.prs-table thead th {
-  font-size: 9px; letter-spacing: .28em; color: var(--gold-soft);
-  font-weight: 400; text-align: left; padding: 10px 16px;
+/* ─ Chip section ─ */
+.prs-chips-block { margin-bottom: 72px; }
+.prs-chips-h {
+  font-family: var(--serif-jp); font-size: 16px; font-weight: 400;
+  color: var(--gold-soft); letter-spacing: .06em; margin-bottom: 14px;
 }
-.prs-table thead th:last-child { text-align: right; }
-.prs-table tbody tr { border-bottom: 1px solid rgba(255,255,255,.04); transition: background .2s; }
-.prs-table tbody tr:hover { background: rgba(255,255,255,.025); }
-.prs-table td { padding: 14px 16px; color: var(--ink-soft); }
-.prs-table td:last-child { text-align: right; }
-.prs-tier-badge {
-  display: inline-block; font-size: 9px; letter-spacing: .18em; font-weight: 500; padding: 2px 8px; border-radius: 2px;
-}
-.prs-tier-std  { color: var(--ink-muted); border: 1px solid rgba(255,255,255,.1); }
-.prs-tier-gold { color: var(--gold);  border: 1px solid rgba(201,168,76,.3);  background: rgba(201,168,76,.04); }
-.prs-tier-plat { color: #A8A9AD;      border: 1px solid rgba(168,169,173,.3); }
-.prs-tier-dia  { color: #7CA6D8;      border: 1px solid rgba(124,166,216,.3); background: rgba(124,166,216,.04); }
-.prs-row-plat { background: rgba(168,169,173,.02); }
-.prs-row-dia  { background: rgba(9,15,30,.4); }
-.prs-price-cell { font-family: var(--serif); font-size: 15px; font-weight: 300; color: var(--ink); }
-.prs-chips-cell { color: var(--ink-muted); font-size: 12px; }
-.prs-col-gold { color: var(--gold) !important; }
-.prs-col-plat { color: #A8A9AD !important; }
-.prs-col-dia  { color: #7CA6D8 !important; }
-.prs-app-note { margin-top: 20px; font-size: 12.5px; color: var(--ink-muted); text-align: center; line-height: 2; }
-.prs-app-link { color: var(--gold-soft); border-bottom: 1px solid rgba(201,168,76,.25); transition: color .2s; }
-.prs-app-link:hover { color: var(--gold); }
+.prs-chips-desc { font-size: 13px; color: var(--ink-muted); line-height: 1.9; margin-bottom: 28px; }
 
-/* ─ Membership ─ */
-.prs-tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.prs-tier-card {
-  background: var(--bg-card); border: 1px solid rgba(255,255,255,.06);
-  border-radius: 4px; padding: 32px 24px 28px;
+/* ─ Chip cards grid ─ */
+.prs-cards {
+  display: grid; grid-template-columns: repeat(3, 1fr);
 }
-.prs-tc-gold { border-top: 2px solid var(--gold); }
-.prs-tc-plat { border-top: 2px solid #A8A9AD; }
-.prs-tc-dia  { border-top: 2px solid #7CA6D8; background: rgba(9,15,30,.6); }
-.prs-tc-header { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,.06); }
-.prs-tc-rank {
-  font-family: var(--serif); font-size: 20px; font-weight: 300; letter-spacing: .3em; margin-bottom: 10px;
+.prs-card {
+  border: 1px solid rgba(201,168,76,.2); padding: 28px 20px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 12px; min-height: 130px; text-align: center;
 }
-.prs-tc-gold .prs-tc-rank { color: var(--gold); }
-.prs-tc-plat .prs-tc-rank { color: #A8A9AD; }
-.prs-tc-dia  .prs-tc-rank { color: #7CA6D8; }
-.prs-tc-threshold { font-size: 11px; color: var(--ink-muted); letter-spacing: .03em; margin-bottom: 4px; }
-.prs-tc-period { font-size: 12px; color: var(--ink-soft); }
-.prs-tc-list { list-style: none; padding: 0; margin: 0; }
-.prs-tc-list li {
-  font-size: 12.5px; color: var(--ink-soft); line-height: 1;
-  padding: 9px 0 9px 16px; border-bottom: 1px solid rgba(255,255,255,.04); position: relative;
+.prs-card-gold { border-color: rgba(201,168,76,.35); background: rgba(20,16,0,.4); }
+.prs-card-plat { border-color: rgba(168,169,173,.3); }
+.prs-card-dia  { border-color: rgba(124,166,216,.3); background: rgba(8,12,24,.55); }
+.prs-cp {
+  font-family: var(--serif); font-size: clamp(14px,1.6vw,18px);
+  font-weight: 300; color: var(--ink);
 }
-.prs-tc-list li::before { content: '—'; position: absolute; left: 0; color: rgba(201,168,76,.4); font-size: 10px; }
-.prs-tc-dia .prs-tc-list li::before { color: rgba(124,166,216,.4); }
-.prs-tc-list li:last-child { border-bottom: none; }
+.prs-cp-gold { color: var(--gold); }
+.prs-cp-plat { color: #A8A9AD; }
+.prs-cp-dia  { color: #7CA6D8; }
+.prs-plus { font-size: 20px; color: var(--ink-muted); line-height: 1; }
 
-/* ─ Mile ─ */
-.prs-mile { max-width: 900px; margin: 0 auto; padding: 0 24px; }
-.prs-mile-inner {
-  background: var(--bg-card); border: 1px solid rgba(201,168,76,.15);
-  border-radius: 4px; padding: 48px 56px; text-align: center; position: relative; overflow: hidden;
+/* ─ Member badges ─ */
+.prs-mbadge {
+  display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 5px 16px; border-radius: 3px; gap: 0;
 }
-.prs-mile-inner::before {
-  content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 50% 100%, rgba(201,168,76,.04) 0%, transparent 65%);
-  pointer-events: none;
+.prs-mb-rank { font-family: var(--sans); font-weight: 700; font-size: 14px; letter-spacing: .08em; line-height: 1.3; }
+.prs-mb-mem  { font-family: var(--sans); font-weight: 500; font-size: 9px;  letter-spacing: .16em; line-height: 1.4; }
+.prs-mb-gold { background: var(--gold); color: #000; }
+.prs-mb-plat { background: #e4e4e4; color: #1a1a1a; }
+.prs-mb-dia  {
+  background: #0a0a0a; color: #fff;
+  border: 1px solid rgba(124,166,216,.6);
+  background-image: repeating-linear-gradient(45deg, rgba(124,166,216,.06) 0px, rgba(124,166,216,.06) 1px, transparent 1px, transparent 7px);
 }
-.prs-mile-title {
-  font-family: var(--serif-jp); font-size: 18px; font-weight: 400; color: var(--ink);
-  margin-bottom: 14px; display: flex; flex-direction: column; align-items: center; gap: 8px;
+.prs-mb-lg { padding: 10px 24px; }
+.prs-mb-lg .prs-mb-rank { font-size: 18px; }
+.prs-mb-lg .prs-mb-mem  { font-size: 10px; }
+
+.prs-days { font-family: var(--sans); font-size: 11px; letter-spacing: .06em; }
+.prs-days-gold { color: var(--gold); }
+.prs-days-plat { color: #A8A9AD; }
+.prs-days-dia  { color: #7CA6D8; }
+
+/* ─ Membership rows ─ */
+.prs-mem-block { margin-bottom: 56px; }
+.prs-mem-row {
+  display: flex; align-items: flex-start; gap: 48px;
+  padding: 28px 0; border-bottom: 1px solid rgba(255,255,255,.06);
 }
-.prs-mile-earn { font-size: 13px; color: var(--ink-muted); line-height: 1.8; margin-bottom: 32px; }
-.prs-mile-earn strong { color: var(--gold); }
-.prs-mile-rewards { display: flex; align-items: center; justify-content: center; gap: 32px; flex-wrap: wrap; }
-.prs-mile-item { display: flex; align-items: center; gap: 14px; }
-.prs-mi-num { font-family: var(--serif); font-size: 20px; font-weight: 300; color: var(--gold); }
-.prs-mi-arrow { color: rgba(201,168,76,.4); font-size: 18px; }
-.prs-mi-rwd { display: flex; flex-direction: column; gap: 4px; text-align: left; }
-.prs-mi-rwd strong { color: var(--ink); font-size: 14px; font-weight: 400; }
-.prs-mi-rwd span { color: var(--ink-muted); font-size: 11px; letter-spacing: .04em; }
-.prs-mile-or {
-  font-family: var(--serif); font-style: italic; font-size: 14px; color: var(--ink-muted); letter-spacing: .1em;
+.prs-mem-row:last-child { border-bottom: none; }
+.prs-mem-left { flex: 0 0 180px; text-align: center; }
+.prs-mem-days { font-family: var(--sans); font-size: 11px; letter-spacing: .06em; margin-top: 8px; }
+.prs-mem-list {
+  list-style: none; padding: 0; margin: 0; flex: 1;
+  display: flex; flex-wrap: wrap; align-content: flex-start; gap: 6px 32px;
 }
+.prs-mem-list li {
+  font-size: 13px; color: var(--ink-soft);
+  padding-left: 14px; position: relative; line-height: 1.6;
+}
+.prs-mem-list li::before { content: '·'; position: absolute; left: 0; color: var(--gold); font-size: 18px; line-height: 1.1; }
+
+/* ─ Note ─ */
+.prs-note { font-size: 12px; color: var(--ink-muted); margin-bottom: 48px; }
+
+/* ─ App download ─ */
+.prs-app-block { }
+.prs-app-title {
+  font-family: var(--serif-jp); font-size: 14px; color: var(--gold-soft);
+  margin-bottom: 20px; letter-spacing: .03em;
+}
+.prs-app-badges { display: flex; gap: 14px; flex-wrap: wrap; }
+.prs-dl {
+  display: inline-flex; align-items: center; gap: 10px;
+  border-radius: 8px; padding: 9px 18px; text-decoration: none; min-width: 170px;
+  transition: opacity .2s;
+}
+.prs-dl:hover { opacity: .8; }
+.prs-dl-apple  { background: #000; border: 1px solid rgba(255,255,255,.18); }
+.prs-dl-google { background: #000; border: 1px solid rgba(255,255,255,.18); }
+.prs-dl-ico { width: 24px; height: 24px; flex-shrink: 0; }
+.prs-dl-txt { display: flex; flex-direction: column; gap: 1px; }
+.prs-dl-sub  { font-family: var(--sans); font-size: 9px;  letter-spacing: .03em; color: rgba(255,255,255,.75); }
+.prs-dl-main { font-family: var(--sans); font-size: 17px; font-weight: 600; line-height: 1; color: #fff; }
 
 /* ─ Responsive ─ */
-@media (max-width: 768px) {
-  .prs-entry { padding: 48px 28px; margin-bottom: 48px; }
-  .prs-tiers { grid-template-columns: 1fr; }
-  .prs-mile-inner { padding: 36px 24px; }
-  .prs-mile-rewards { flex-direction: column; gap: 20px; }
+@media (max-width: 900px) {
+  .prs-cards { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 680px) {
+  .prs-inner { padding: 0 20px; }
+  .prs-mem-row { flex-direction: column; gap: 18px; }
+  .prs-mem-left { flex: none; }
+  .prs-mem-list { flex-direction: column; gap: 6px; }
+}
+@media (max-width: 480px) {
+  .prs-cards { grid-template-columns: 1fr 1fr; }
+  .prs-cp { font-size: 13px; }
 }
 
 /* ── 20. Footer ───────────────────────────────────────── */
