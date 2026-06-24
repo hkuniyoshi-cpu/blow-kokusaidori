@@ -401,6 +401,8 @@ h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; line-height: 1.2; 
   border: 1px dashed rgba(201,168,76,.3); border-radius: 1px;
   pointer-events: none;
 }
+/* CMSがテキストを流し込む前の空枠フラッシュを防ぐ */
+.hero-tag:empty { display: none; }
 
 .hero-tagline-right {
   position: absolute; right: 48px; top: 50%;
