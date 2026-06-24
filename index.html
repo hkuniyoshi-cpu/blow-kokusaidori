@@ -560,7 +560,7 @@ fetch(GAS_URL)
     if (data.faq)      applyFAQ(data.faq);
     if (data.cta)      applyCTA(data.cta);
     // ローダーを非表示（最低2.5秒は表示を維持）
-    var waited = Math.max(0, 3500 - (Date.now() - _t0));
+    var waited = Math.max(0, 2500 - (Date.now() - _t0));
     setTimeout(hideLoader, waited);
   })
   .catch(function(err) {
@@ -917,12 +917,12 @@ window.addEventListener('scroll', () => {
   function drawP(p){ ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot||0); ctx.globalAlpha=Math.max(0,Math.min(1,p.a));
     if(p.tp===2){
       ctx.fillStyle='rgba(201,168,76,1)';
-      ctx.shadowColor='rgba(201,168,76,.6)'; ctx.shadowBlur=6;
+      if(W>=768){ ctx.shadowColor='rgba(201,168,76,.6)'; ctx.shadowBlur=6; }
       ctx.beginPath(); ctx.arc(0,0,p.r,0,Math.PI*2); ctx.fill();
       ctx.shadowBlur=0;
     } else if(p.tp===1){
       ctx.fillStyle='#C8A83E'; ctx.strokeStyle='rgba(255,248,220,.7)'; ctx.lineWidth=1.4;
-      ctx.shadowColor='rgba(201,168,76,.5)'; ctx.shadowBlur=8;
+      if(W>=768){ ctx.shadowColor='rgba(201,168,76,.5)'; ctx.shadowBlur=8; }
       ctx.beginPath(); ctx.arc(0,0,p.r,0,Math.PI*2); ctx.fill(); ctx.stroke();
       ctx.shadowBlur=0;
       ctx.fillStyle='rgba(255,248,220,.95)'; ctx.font='bold '+(p.r*.95)+'px serif'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('¥',0,1);
@@ -937,17 +937,17 @@ window.addEventListener('scroll', () => {
     }
     ctx.restore(); }
   var lastTime=0;
-  function tick(ts){ raf=requestAnimationFrame(tick); if(ts-lastTime<30)return; lastTime=ts;
+  function tick(ts){ raf=requestAnimationFrame(tick); if(ts-lastTime<(W<768?50:30))return; lastTime=ts;
     ctx.clearRect(0,0,W,H);
-    ctx.strokeStyle='rgba(201,168,76,.028)'; ctx.lineWidth=1;
-    for(var x=0;x<W;x+=70){ ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
-    for(var y=0;y<H;y+=70){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+    if(W>=768){ ctx.strokeStyle='rgba(201,168,76,.028)'; ctx.lineWidth=1;
+      for(var x=0;x<W;x+=70){ ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+      for(var y=0;y<H;y+=70){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); } }
     for(var i=ps.length-1;i>=0;i--){ var p=ps[i]; p.x+=p.vx; p.y+=p.vy; if(p.rot!==undefined)p.rot+=p.vr||0;
       if(p.tp===2){ p.a+=p.da; if(p.a<.18||p.a>.85)p.da*=-1; }
       else if(p.tp===1){ if(p.y>H+55)ps.splice(i,1); }
       else{ if(p.x<-50)p.x=W+50; else if(p.x>W+50)p.x=-50; if(p.y<-60)p.y=H+60; else if(p.y>H+60)p.y=-60; }
       if(ps[i])drawP(p); } }
-  function init(){ resize(); var vs=getVS(),nc=Math.round(24*Math.min(vs,1.8)),ns=Math.round(45*Math.min(vs,1.8)); ps=[];
+  function init(){ resize(); var vs=getVS(),nc=W<768?8:Math.round(24*Math.min(vs,1.8)),ns=W<768?15:Math.round(45*Math.min(vs,1.8)); ps=[];
     for(var i=0;i<nc;i++)ps.push(mkCard());
     for(var i=0;i<ns;i++)ps.push(mkSpark());
     cancelAnimationFrame(raf); raf=requestAnimationFrame(tick); }
