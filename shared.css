@@ -827,35 +827,35 @@ h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; line-height: 1.2; 
   border: 1px solid rgba(201,168,76,.3); border-radius: 2px; margin-bottom: 72px;
 }
 .prs-fee-lbl {
-  padding: 14px 28px; font-size: 13.5px; color: var(--ink-soft);
+  padding: 16px 30px; font-size: 16px; font-weight: 500; color: var(--ink);
   border-right: 1px solid rgba(201,168,76,.3); background: rgba(201,168,76,.04);
   display: flex; align-items: center; white-space: nowrap;
 }
-.prs-fee-val { padding: 14px 22px; font-size: 13.5px; color: var(--ink-soft); display: flex; align-items: center; }
+.prs-fee-val { padding: 16px 26px; font-size: 16px; color: var(--ink-soft); display: flex; align-items: center; }
 
 /* ─ Chip section ─ */
 .prs-chips-block { margin-bottom: 72px; }
 .prs-chips-h {
-  font-family: var(--serif-jp); font-size: 16px; font-weight: 400;
-  color: var(--gold-soft); letter-spacing: .06em; margin-bottom: 14px;
+  font-family: var(--serif-jp); font-size: 22px; font-weight: 500;
+  color: var(--gold-soft); letter-spacing: .06em; margin-bottom: 16px;
 }
-.prs-chips-desc { font-size: 13px; color: var(--ink-muted); line-height: 1.9; margin-bottom: 28px; }
+.prs-chips-desc { font-size: 15px; color: var(--ink-soft); line-height: 2; margin-bottom: 32px; }
 
 /* ─ Chip cards grid ─ */
 .prs-cards {
   display: grid; grid-template-columns: repeat(3, 1fr);
 }
 .prs-card {
-  border: 1px solid rgba(201,168,76,.2); padding: 28px 20px;
+  border: 1px solid rgba(201,168,76,.2); padding: 32px 20px;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 12px; min-height: 130px; text-align: center;
+  gap: 14px; min-height: 150px; text-align: center;
 }
 .prs-card-gold { border-color: rgba(201,168,76,.35); background: rgba(20,16,0,.4); }
 .prs-card-plat { border-color: rgba(168,169,173,.3); }
 .prs-card-dia  { border-color: rgba(124,166,216,.3); background: rgba(8,12,24,.55); }
 .prs-cp {
-  font-family: var(--serif); font-size: clamp(14px,1.6vw,18px);
-  font-weight: 300; color: var(--ink);
+  font-family: var(--serif); font-size: clamp(19px,2vw,24px);
+  font-weight: 400; color: var(--ink); letter-spacing: .01em;
 }
 .prs-cp-gold { color: var(--gold); }
 .prs-cp-plat { color: #A8A9AD; }
@@ -867,8 +867,8 @@ h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; line-height: 1.2; 
   display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
   padding: 5px 16px; border-radius: 3px; gap: 0;
 }
-.prs-mb-rank { font-family: var(--sans); font-weight: 700; font-size: 14px; letter-spacing: .08em; line-height: 1.3; }
-.prs-mb-mem  { font-family: var(--sans); font-weight: 500; font-size: 9px;  letter-spacing: .16em; line-height: 1.4; }
+.prs-mb-rank { font-family: var(--sans); font-weight: 700; font-size: 15px; letter-spacing: .08em; line-height: 1.3; }
+.prs-mb-mem  { font-family: var(--sans); font-weight: 500; font-size: 10px;  letter-spacing: .16em; line-height: 1.4; }
 .prs-mb-gold { background: var(--gold); color: #000; }
 .prs-mb-plat { background: #e4e4e4; color: #1a1a1a; }
 .prs-mb-dia  {
@@ -876,11 +876,11 @@ h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; line-height: 1.2; 
   border: 1px solid rgba(124,166,216,.6);
   background-image: repeating-linear-gradient(45deg, rgba(124,166,216,.06) 0px, rgba(124,166,216,.06) 1px, transparent 1px, transparent 7px);
 }
-.prs-mb-lg { padding: 10px 24px; }
-.prs-mb-lg .prs-mb-rank { font-size: 18px; }
-.prs-mb-lg .prs-mb-mem  { font-size: 10px; }
+.prs-mb-lg { padding: 12px 28px; }
+.prs-mb-lg .prs-mb-rank { font-size: 21px; }
+.prs-mb-lg .prs-mb-mem  { font-size: 11px; }
 
-.prs-days { font-family: var(--sans); font-size: 11px; letter-spacing: .06em; }
+.prs-days { font-family: var(--sans); font-size: 13px; letter-spacing: .06em; }
 .prs-days-gold { color: var(--gold); }
 .prs-days-plat { color: #A8A9AD; }
 .prs-days-dia  { color: #7CA6D8; }
@@ -889,28 +889,28 @@ h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; line-height: 1.2; 
 .prs-mem-block { margin-bottom: 56px; }
 .prs-mem-row {
   display: flex; align-items: flex-start; gap: 48px;
-  padding: 28px 0; border-bottom: 1px solid rgba(255,255,255,.06);
+  padding: 32px 0; border-bottom: 1px solid rgba(255,255,255,.06);
 }
 .prs-mem-row:last-child { border-bottom: none; }
-.prs-mem-left { flex: 0 0 180px; text-align: center; }
-.prs-mem-days { font-family: var(--sans); font-size: 11px; letter-spacing: .06em; margin-top: 8px; }
+.prs-mem-left { flex: 0 0 200px; text-align: center; }
+.prs-mem-days { font-family: var(--sans); font-size: 13px; letter-spacing: .06em; margin-top: 10px; }
 .prs-mem-list {
   list-style: none; padding: 0; margin: 0; flex: 1;
-  display: flex; flex-wrap: wrap; align-content: flex-start; gap: 6px 32px;
+  display: flex; flex-wrap: wrap; align-content: flex-start; gap: 10px 36px;
 }
 .prs-mem-list li {
-  font-size: 13px; color: var(--ink-soft);
-  padding-left: 14px; position: relative; line-height: 1.6;
+  font-size: 15.5px; color: var(--ink-soft);
+  padding-left: 16px; position: relative; line-height: 1.7;
 }
-.prs-mem-list li::before { content: '·'; position: absolute; left: 0; color: var(--gold); font-size: 18px; line-height: 1.1; }
+.prs-mem-list li::before { content: '·'; position: absolute; left: 0; color: var(--gold); font-size: 20px; line-height: 1.2; }
 
 /* ─ Note ─ */
-.prs-note { font-size: 12px; color: var(--ink-muted); margin-bottom: 48px; }
+.prs-note { font-size: 13.5px; color: var(--ink-muted); margin-bottom: 48px; }
 
 /* ─ App download ─ */
 .prs-app-block { }
 .prs-app-title {
-  font-family: var(--serif-jp); font-size: 14px; color: var(--gold-soft);
+  font-family: var(--serif-jp); font-size: 17px; color: var(--gold-soft);
   margin-bottom: 20px; letter-spacing: .03em;
 }
 .prs-app-badges { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
@@ -930,7 +930,9 @@ h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; line-height: 1.2; 
 }
 @media (max-width: 480px) {
   .prs-cards { grid-template-columns: 1fr 1fr; }
-  .prs-cp { font-size: 13px; }
+  .prs-cp { font-size: 15px; }
+  .prs-fee { flex-direction: column; }
+  .prs-fee-lbl { border-right: none; border-bottom: 1px solid rgba(201,168,76,.3); white-space: normal; }
 }
 
 /* ── 20. Footer ───────────────────────────────────────── */
