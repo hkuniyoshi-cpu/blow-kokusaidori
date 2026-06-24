@@ -315,6 +315,9 @@
     <div class="review-skel"></div>
     <div class="review-skel"></div>
   </div>
+  <div class="reviews-more-wrap">
+    <a id="reviewsMoreBtn" class="btn-reviews-more" href="#" target="_blank" rel="noopener">Googleのクチコミをもっとみる →</a>
+  </div>
 </section>
 
 <!-- ===== BLOG ===== -->
@@ -500,6 +503,10 @@
    ============================================================ */
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbxNbYcMyicthfOx-25Ir2szSp3EDa1rAGNjHrFwxDFSFzww9cfnHcEy_D5IjKiqW2Nq/exec';
 
+/* ── Scroll restoration ──────────────────────────────────── */
+if (history.scrollRestoration) history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+
 /* ── Loader control ──────────────────────────────────────── */
 var _loader   = document.getElementById('siteLoader');
 var _t0       = Date.now();
@@ -553,7 +560,7 @@ fetch(GAS_URL)
     if (data.faq)      applyFAQ(data.faq);
     if (data.cta)      applyCTA(data.cta);
     // ローダーを非表示（最低2.5秒は表示を維持）
-    var waited = Math.max(0, 2500 - (Date.now() - _t0));
+    var waited = Math.max(0, 3500 - (Date.now() - _t0));
     setTimeout(hideLoader, waited);
   })
   .catch(function(err) {
@@ -566,6 +573,7 @@ function applySettings(s) {
   window._settings = s;
   if (s.siteName) document.title = s.siteName + ' | カジノバー | 那覇';
   if (s.copyright) { const el = document.getElementById('footerCopy'); if (el) el.textContent = s.copyright; }
+  if (s.gbpUrl) { const btn = document.getElementById('reviewsMoreBtn'); if (btn) btn.href = s.gbpUrl; }
 }
 
 function applyHero(items) {
@@ -721,7 +729,7 @@ function applyBlog(items) {
     const imgUrl = driveImg(b.image);
     const slugMatch = (b.url || '').match(/\/blog\/([^\/\?#]+)/);
     const postSlug  = slugMatch ? slugMatch[1] : (b.date || '');
-    const blogHref  = postSlug ? `/blog/?post=${postSlug}` : null;
+    const blogHref  = postSlug ? `/blog/?post=${postSlug}&n=${i}` : null;
     const tagOpen  = blogHref ? `<a href="${blogHref}" class="e blog-card reveal">` : `<article class="e blog-card reveal" role="button" tabindex="0" data-idx="${i}">`;
     const tagClose = blogHref ? '</a>' : '</article>';
     return `${tagOpen}
@@ -898,12 +906,13 @@ window.addEventListener('scroll', () => {
   var W=0, H=0, raf=0, ps=[], coinMode=false;
   var CARDS=['A♠','K♠','Q♥','J♦','10♣','9♥','8♦','7♠','A♥','K♦','Q♠','J♣','6♥','4♦','2♣','3♠','5♥','J♠'];
   function resize(){ W=cvs.width=window.innerWidth; H=cvs.height=window.innerHeight; }
+  function getVS(){ return Math.min(Math.max(W/800,0.7),2.2); }
   function mkCard(){
-    var t=CARDS[0|Math.random()*CARDS.length], red=t.endsWith('♥')||t.endsWith('♦');
-    return{x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.38,vy:-(Math.random()*.22+.07),rot:Math.random()*Math.PI*2,vr:(Math.random()-.5)*.016,a:Math.random()*.45+.22,sz:Math.random()*12+10,t:t,red:red,tp:0};
+    var vs=getVS(), t=CARDS[0|Math.random()*CARDS.length], red=t.endsWith('♥')||t.endsWith('♦');
+    return{x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.38,vy:-(Math.random()*.22+.07),rot:Math.random()*Math.PI*2,vr:(Math.random()-.5)*.016,a:Math.random()*.45+.22,sz:(Math.random()*12+10)*vs,t:t,red:red,tp:0};
   }
-  function mkCoin(){ return{x:Math.random()*W,y:-40,vx:(Math.random()-.5)*.5,vy:Math.random()*1.8+.8,rot:Math.random()*Math.PI*2,vr:(Math.random()-.5)*.09,a:.92,r:Math.random()*9+5,tp:1}; }
-  function mkSpark(){ return{x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,r:Math.random()*2.2+.8,a:Math.random()*.50+.30,da:(Math.random()-.5)*.012,tp:2}; }
+  function mkCoin(){ var vs=getVS(); return{x:Math.random()*W,y:-40,vx:(Math.random()-.5)*.5,vy:Math.random()*1.8+.8,rot:Math.random()*Math.PI*2,vr:(Math.random()-.5)*.09,a:.92,r:(Math.random()*9+5)*vs,tp:1}; }
+  function mkSpark(){ var vs=getVS(); return{x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,r:(Math.random()*2.2+.8)*vs,a:Math.random()*.50+.30,da:(Math.random()-.5)*.012,tp:2}; }
   function rrect(x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y); ctx.arcTo(x+w,y,x+w,y+r,r); ctx.lineTo(x+w,y+h-r); ctx.arcTo(x+w,y+h,x+w-r,y+h,r); ctx.lineTo(x+r,y+h); ctx.arcTo(x,y+h,x,y+h-r,r); ctx.lineTo(x,y+r); ctx.arcTo(x,y,x+r,y,r); ctx.closePath(); }
   function drawP(p){ ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot||0); ctx.globalAlpha=Math.max(0,Math.min(1,p.a));
     if(p.tp===2){
@@ -938,11 +947,11 @@ window.addEventListener('scroll', () => {
       else if(p.tp===1){ if(p.y>H+55)ps.splice(i,1); }
       else{ if(p.x<-50)p.x=W+50; else if(p.x>W+50)p.x=-50; if(p.y<-60)p.y=H+60; else if(p.y>H+60)p.y=-60; }
       if(ps[i])drawP(p); } }
-  function init(){ ps=[];
-    for(var i=0;i<24;i++)ps.push(mkCard());
-    for(var i=0;i<45;i++)ps.push(mkSpark());
-    resize(); cancelAnimationFrame(raf); raf=requestAnimationFrame(tick); }
-  window.addEventListener('resize',resize,{passive:true});
+  function init(){ resize(); var vs=getVS(),nc=Math.round(24*Math.min(vs,1.8)),ns=Math.round(45*Math.min(vs,1.8)); ps=[];
+    for(var i=0;i<nc;i++)ps.push(mkCard());
+    for(var i=0;i<ns;i++)ps.push(mkSpark());
+    cancelAnimationFrame(raf); raf=requestAnimationFrame(tick); }
+  var _rzT; window.addEventListener('resize',function(){ resize(); clearTimeout(_rzT); _rzT=setTimeout(init,250); },{passive:true});
   var ctaEl=document.querySelector('.cta');
   if(ctaEl){ var coinObs=new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting&&!coinMode){ coinMode=true; for(var i=0;i<30;i++){ var c=mkCoin(); c.y=-Math.random()*220; ps.push(c); } setTimeout(function(){ coinMode=false; },5000); } }); },{threshold:0.15}); coinObs.observe(ctaEl); }
   init();
