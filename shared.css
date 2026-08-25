@@ -218,6 +218,43 @@ h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; line-height: 1.2; 
 .nav-link:hover { color: var(--ink); }
 .nav-link:hover::after { transform: scaleX(1); transform-origin: left; }
 
+/* ── Language Switcher (Desktop) ─────────────────── */
+.lang-switch {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 0 14px; margin-right: 4px;
+  border-left: 1px solid rgba(201,168,76,.2);
+}
+.lang-btn {
+  font-family: var(--sans); font-size: 11px; font-weight: 500;
+  letter-spacing: .14em; color: rgba(246,241,235,.5);
+  padding: 4px 6px; border-radius: 2px;
+  transition: color .3s ease, background .3s ease;
+}
+.lang-btn:hover { color: var(--gold-soft); }
+.lang-btn.active {
+  color: var(--gold); background: rgba(201,168,76,.08);
+}
+.lang-sep { color: rgba(201,168,76,.3); font-size: 11px; }
+
+/* ── Language Switcher (Mobile Overlay) ────────────── */
+.mobile-menu-lang {
+  display: inline-flex; align-items: center;
+  border: 1px solid rgba(201,168,76,.35);
+  border-radius: 2px; margin-top: 12px;
+}
+.mml-btn {
+  font-family: var(--sans); font-size: 13px; font-weight: 500;
+  letter-spacing: .1em; color: var(--ink-soft);
+  padding: 10px 22px;
+  transition: color .3s ease, background .3s ease;
+}
+.mml-btn + .mml-btn { border-left: 1px solid rgba(201,168,76,.25); }
+.mml-btn.active {
+  color: #1a1408;
+  background: linear-gradient(135deg, #E8D389 0%, #C9A84C 46%, #9E8232 100%);
+}
+.mml-btn:not(.active):hover { color: var(--gold); }
+
 .nav-cta {
   font-family: var(--sans);
   font-size: 10px;
