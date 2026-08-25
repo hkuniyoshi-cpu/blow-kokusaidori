@@ -9,6 +9,11 @@
 <meta http-equiv="content-language" content="ja">
 <link rel="canonical" href="https://blow-kokusaidori.search-mania.net/">
 
+<!-- hreflang: multilingual alternates -->
+<link rel="alternate" hreflang="ja" href="https://blow-kokusaidori.search-mania.net/">
+<link rel="alternate" hreflang="en" href="https://blow-kokusaidori.search-mania.net/en/">
+<link rel="alternate" hreflang="x-default" href="https://blow-kokusaidori.search-mania.net/">
+
 <meta property="og:type" content="website">
 <meta property="og:title" content="BLOW 沖縄国際通り店 | カジノバー | 那覇">
 <meta property="og:description" content="那覇・国際通りのカジノバーBLOW。入場¥1,000フリードリンク付き。">
@@ -18,6 +23,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="ja_JP">
+<meta property="og:locale:alternate" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="BLOW 沖縄国際通り店 | カジノバー">
 <meta name="twitter:description" content="那覇・国際通りのカジノバーBLOW。入場¥1,000フリードリンク付き。">
@@ -33,29 +39,62 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "BarOrPub",
-  "name": "BLOW 沖縄国際通り店",
-  "url": "https://blow-kokusaidori.search-mania.net/",
-  "telephone": "098-943-0960",
-  "priceRange": "¥",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "松尾1-2-4 3F",
-    "addressLocality": "那覇市",
-    "addressRegion": "沖縄県",
-    "postalCode": "900-0014",
-    "addressCountry": "JP"
-  },
-  "openingHoursSpecification": [
+  "@graph": [
     {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-      "opens": "17:00",
-      "closes": "24:00"
+      "@type": ["BarOrPub", "EntertainmentBusiness"],
+      "@id": "https://blow-kokusaidori.search-mania.net/#business",
+      "name": "BLOW 沖縄国際通り店",
+      "alternateName": ["BLOW Casino Bar Kokusaidori", "ブロウ 国際通り店"],
+      "url": "https://blow-kokusaidori.search-mania.net/",
+      "image": "https://blow-kokusaidori.search-mania.net/ogp.svg",
+      "telephone": "+81-98-943-0960",
+      "priceRange": "¥",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "松尾1-2-4 3F",
+        "addressLocality": "那覇市",
+        "addressRegion": "沖縄県",
+        "postalCode": "900-0014",
+        "addressCountry": "JP"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 26.2144,
+        "longitude": 127.6790
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+          "opens": "17:00",
+          "closes": "24:00"
+        }
+      ],
+      "inLanguage": ["ja", "en"],
+      "description": "那覇・国際通りのカジノバー。入場1,000円フリードリンク付き。ブラックジャック・ルーレット・バカラ・テキサスホールデムを楽しめます。",
+      "hasMap": "https://maps.app.goo.gl/9PHkWwtYRBabTQBj8",
+      "paymentAccepted": "Cash, Credit Card",
+      "currenciesAccepted": "JPY",
+      "sameAs": [
+        "https://blow-casino.com/shop/detail.html?id=439",
+        "https://blow-casino.com/",
+        "https://www.instagram.com/blow.kokusaidori/",
+        "https://x.com/blowkokusaidori",
+        "https://www.instagram.com/blowjapan_casino/",
+        "https://maps.app.goo.gl/9PHkWwtYRBabTQBj8",
+        "https://apps.apple.com/jp/app/blow/id6737978825",
+        "https://play.google.com/store/apps/details?id=com.casino.blow.android&hl=ja"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://blow-kokusaidori.search-mania.net/#website",
+      "url": "https://blow-kokusaidori.search-mania.net/",
+      "name": "BLOW 沖縄国際通り店",
+      "inLanguage": "ja",
+      "publisher": { "@id": "https://blow-kokusaidori.search-mania.net/#business" }
     }
-  ],
-  "inLanguage": "ja",
-  "description": "那覇・国際通りのカジノバー。入場1,000円フリードリンク付き。ブラックジャック・ルーレット・バカラ・テキサスホールデムを楽しめます。"
+  ]
 }
 </script>
 </head>
@@ -85,6 +124,11 @@
     <a href="#features" class="nav-link">FEATURES</a>
     <a href="#access"   class="nav-link">ACCESS</a>
     <a href="#faq"      class="nav-link">FAQ</a>
+    <div class="lang-switch" role="group" aria-label="言語切替">
+      <a href="/" class="lang-btn active" aria-current="true" lang="ja">JP</a>
+      <span class="lang-sep">/</span>
+      <a href="/en/" class="lang-btn" lang="en">EN</a>
+    </div>
     <a href="tel:098-943-0960" class="nav-cta">今すぐ入場 →</a>
   </div>
   <button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false">
@@ -101,6 +145,10 @@
     <a href="#features" class="nm-link">Features</a>
     <a href="#access"   class="nm-link">Access</a>
     <a href="#faq"      class="nm-link">FAQ</a>
+    <div class="mobile-menu-lang" role="group" aria-label="Language">
+      <a href="/" class="mml-btn active" lang="ja">日本語</a>
+      <a href="/en/" class="mml-btn" lang="en">English</a>
+    </div>
     <a href="tel:098-943-0960" class="nm-cta">📞 098-943-0960</a>
   </nav>
 </div>
