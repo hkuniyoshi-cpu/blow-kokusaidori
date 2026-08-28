@@ -170,10 +170,6 @@
 
   <div class="hero-tagline-right">那覇 · 松尾 · 17:00〜24:00</div>
 
-  <div class="hero-scroll" id="heroScroll">
-    <span class="scroll-label">SCROLL</span>
-    <div class="scroll-line"></div>
-  </div>
 
   <div class="suits-deco" aria-hidden="true">
     <span class="suit s1">♠</span>
@@ -1085,14 +1081,6 @@ initFAQ();
   clone.setAttribute('aria-hidden', 'true');
   imgs.parentNode.appendChild(clone);
 })();
-
-/* ── Hero scroll fade ───────────────────────────────────────── */
-const heroEl    = document.querySelector('.hero');
-const heroScroll = document.getElementById('heroScroll');
-window.addEventListener('scroll', () => {
-  if (!heroEl || !heroScroll) return;
-  heroScroll.style.opacity = Math.max(0, 1 - window.scrollY / (heroEl.offsetHeight * 0.4));
-}, { passive: true });
 
 /* ── Casino canvas: cards + coins + sparkles ─────────────────── */
 (function() {
